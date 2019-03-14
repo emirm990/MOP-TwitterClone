@@ -1,0 +1,15 @@
+.profile-container {
+  flex-basis: 20%;
+}
+.profile-flex {
+  display: flex;
+  height: 100px;
+  border: 1px solid black;
+}
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 0 auto;
+  padding: 0 10px 0 10px;
+}
