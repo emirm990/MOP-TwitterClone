@@ -1,18 +1,88 @@
+:root {
+  --background-color: #bfede9;
+  --tweets: #edeae5;
+  --tweetBox: #fef9c7;
+}
+body {
+  margin: 0;
+}
+#root {
+  background-color: var(--background-color);
+  height: 100vh;
+}
+
 .container {
+  padding-top: 50px;
   display: flex;
+  width: 80%;
+  margin: 0 auto;
+  background-color: var(--background-color);
 }
 .tweets-container {
   flex-basis: 100%;
-  padding-left: 20px;
+  padding: 20px;
+  background-color: var(--tweetBox);
+  border-radius: 10px;
 }
 .post-container {
   width: 50%;
   display: flex;
-  height: 30px;
 }
 #post {
   flex-basis: 100%;
+  border-radius: 5px;
+  border: none;
+  padding: 10px;
 }
 .post-button {
   flex-basis: 10%;
+}
+#username-input {
+  display: block;
+  margin: 0 auto;
+  width: 80%;
+  text-align: center;
+  border-radius: 5px;
+  border: none;
+  padding: 10px;
+}
+.login-container {
+  text-align: center;
+}
+.logo-container {
+  max-width: 300px;
+  max-height: 300px;
+  margin: 0 auto;
+}
+.logo-container img {
+  max-width: 300px;
+}
+@media only screen and (max-width: 1124px) {
+  .container {
+    width: 98%;
+  }
+}
+@media only screen and (max-width: 921px) {
+  .post-container {
+    width: 80%;
+  }
+}
+@media only screen and (max-width: 710px) {
+  .post-container {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 650px) {
+  .container {
+    flex-direction: column;
+  }
+  .profile-container {
+    margin: 0 0 20px 0;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .profile-container {
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
 }

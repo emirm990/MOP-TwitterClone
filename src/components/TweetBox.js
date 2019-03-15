@@ -6,14 +6,18 @@ const TweetBox = props => {
   return (
     <div className='tweetbox-container'>
       <ul>
-        {props.tweets.map((tweet, id) => (
-          <Tweet
-            key={id}
-            tweet={tweet}
-            usernameShort={props.usernameShort}
-            profilePicture={props.profilePicture}
-          />
-        ))}
+        {props.tweets
+          .slice(0)
+          .reverse()
+          .map((tweet, index) => (
+            <Tweet
+              key={index}
+              tweet={tweet}
+              timesOfTweet={props.timesOfTweets.slice(0).reverse()[index]}
+              usernameShort={props.usernameShort}
+              profilePicture={props.profilePicture}
+            />
+          ))}
       </ul>
     </div>
   );

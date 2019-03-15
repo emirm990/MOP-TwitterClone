@@ -1,24 +1,38 @@
+:root {
+  --background-color: #9fedd7;
+  --tweets: #edeae5;
+  --tweetBox: #fef9c7;
+}
 .list-item {
   list-style-type: none;
   padding: 25px 0 25px 0;
+  margin-top: 5px;
   display: flex;
   height: 50px;
+  background-color: var(--tweets);
+  border-radius: 10px 0 10px 0;
 }
 .tweet-picture-container {
   height: 50px;
-  width: 50px;
+  margin-left: 5px;
 }
 .tweet-picture-container img {
   height: 50px;
-  width: 50px;
+  border-radius: 10px;
 }
 .tweet-content p {
   margin: 0;
+  flex-basis: 100%;
+}
+.tweet-username {
+  padding-right: 20px;
+}
+.tweet-time::before {
+  content: " ~";
 }
 .tweet-content {
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  flex-wrap: wrap;
   padding-left: 20px;
   width: 100%;
 }

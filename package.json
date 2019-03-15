@@ -4,11 +4,15 @@
   "private": true,
   "dependencies": {
     "cloudinary-react": "^1.1.0",
+    "filepond": "^4.2.0",
+    "gh-pages": "^2.0.1",
     "mongodb-stitch-browser-sdk": "^4.3.1",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
+    "react-filepond": "^7.0.1",
     "react-scripts": "2.1.8",
-    "react-timestamp": "^4.4.0"
+    "react-timestamp": "^4.4.0",
+    "uploadcare-widget": "^3.7.0"
   },
   "scripts": {
     "start": "react-scripts start",

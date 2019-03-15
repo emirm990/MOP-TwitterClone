@@ -1,4 +1,6 @@
 import React from "react";
+import Timestamp from "react-timestamp";
+
 import "../styles/tweet.css";
 
 const Tweet = props => {
@@ -8,7 +10,12 @@ const Tweet = props => {
         <img src={props.profilePicture} alt='profile' />
       </div>
       <div className='tweet-content'>
-        <p>@{props.usernameShort} </p>
+        <span className='tweet-username'>@{props.usernameShort} </span>
+        <Timestamp
+          className='tweet-time'
+          time={props.timesOfTweet}
+          autoUpdate
+        />
         <p>{props.tweet}</p>
       </div>
     </li>
