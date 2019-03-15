@@ -142,7 +142,7 @@ class App extends Component {
         console.log("[MongoDB Stitch] Connected to Stitch");
         if (docs) {
           this.setState({
-            profilePicture: docs.profilePicture || "/logo.gif",
+            profilePicture: docs.profilePicture || "logo.gif",
             tweetCounter: docs.tweetCounter,
             tweets: docs.tweets,
             timesOfTweets: docs.timesOfTweets,
