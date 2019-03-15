@@ -25,7 +25,7 @@ class App extends Component {
   }
 
   state = {
-    profilePicture: "/logo.gif",
+    profilePicture: "logo.gif",
     username: "",
     usernameShort: "",
     tweets: [],
