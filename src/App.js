@@ -69,8 +69,8 @@ class App extends Component {
       let newTweetTime = this.state.timesOfTweets;
       let date = new Date();
       let time = date.getTime() / 1000;
-      newTweetTime.push(time);
-      newTweet.push(this.state.tweetValue);
+      newTweetTime.unshift(time);
+      newTweet.unshift(this.state.tweetValue);
       this.setState({
         tweets: newTweet,
         timesOfTweets: newTweetTime,

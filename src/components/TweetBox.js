@@ -6,18 +6,17 @@ const TweetBox = props => {
   return (
     <div className='tweetbox-container'>
       <ul>
-        {props.tweets
-          .slice(0)
-          .reverse()
-          .map((tweet, index) => (
-            <Tweet
-              key={index}
-              tweet={tweet}
-              timesOfTweet={props.timesOfTweets.slice(0).reverse()[index]}
-              usernameShort={props.usernameShort}
-              profilePicture={props.profilePicture}
-            />
-          ))}
+        {props.tweets.map((tweet, index) => (
+          <Tweet
+            key={index}
+            datakey={index}
+            length={props.tweets.length}
+            tweet={tweet}
+            timesOfTweet={props.timesOfTweets[index]}
+            usernameShort={props.usernameShort}
+            profilePicture={props.profilePicture}
+          />
+        ))}
       </ul>
     </div>
   );

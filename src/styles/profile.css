@@ -6,6 +6,8 @@
   background-color: #edeae5;
   border-radius: 10px;
   box-shadow: 1px 1px 1px lightgrey;
+  position: sticky;
+  top: 50px;
 }
 .profile-flex {
   display: flex;
@@ -28,4 +30,9 @@
 .uploader label {
   display: block;
   padding: 10px;
+}
+@media only screen and (max-width: 650px) {
+  .profile-container {
+    position: inherit;
+  }
 }

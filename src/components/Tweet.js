@@ -1,7 +1,7 @@
 import React from "react";
 import Timestamp from "react-timestamp";
-
 import "../styles/tweet.css";
+
 const Tweet = props => {
   return (
     <li className='list-item'>

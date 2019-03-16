@@ -4,23 +4,41 @@
   --tweetBox: #edeae5;
   --tweets: #fef9c7;
 }
+.example-enter {
+  opacity: 0.01;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.example-leave {
+  opacity: 1;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
 .list-item {
   list-style-type: none;
-  padding: 25px 0 25px 0;
-  margin-top: 5px;
+  padding: 10px 0 10px 0;
+  margin-top: 25px;
   display: flex;
-  height: 50px;
+  height: 45px;
   background-color: var(--background-color2);
   border-radius: 10px 0 10px 0;
   box-shadow: 1px 1px 1px lightgrey;
 }
 .tweet-picture-container {
-  height: 50px;
+  height: 65px;
   margin-left: 5px;
+  margin: -10px 0 -10px 0;
 }
 .tweet-picture-container img {
-  height: 50px;
-  border-radius: 10px;
+  height: 65px;
+  border-radius: 10px 0 10px 0;
 }
 .tweet-content p {
   margin: 0;
