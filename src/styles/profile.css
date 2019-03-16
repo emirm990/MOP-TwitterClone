@@ -5,6 +5,7 @@
   padding: 20px;
   background-color: #edeae5;
   border-radius: 10px;
+  box-shadow: 1px 1px 1px lightgrey;
 }
 .profile-flex {
   display: flex;

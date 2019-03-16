@@ -1,7 +1,8 @@
 :root {
   --background-color: #9fedd7;
-  --tweets: #edeae5;
-  --tweetBox: #fef9c7;
+  --background-color2: rgba(191, 237, 233, 0.5);
+  --tweetBox: #edeae5;
+  --tweets: #fef9c7;
 }
 .list-item {
   list-style-type: none;
@@ -9,8 +10,9 @@
   margin-top: 5px;
   display: flex;
   height: 50px;
-  background-color: var(--tweets);
+  background-color: var(--background-color2);
   border-radius: 10px 0 10px 0;
+  box-shadow: 1px 1px 1px lightgrey;
 }
 .tweet-picture-container {
   height: 50px;

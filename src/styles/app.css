@@ -1,13 +1,14 @@
 :root {
   --background-color: #bfede9;
-  --tweets: #edeae5;
-  --tweetBox: #fef9c7;
+  --background-color2: rgba(191, 237, 233, 0.5);
+  --tweetBox: #edeae5;
+  --tweet: #fef9c7;
 }
 body {
   margin: 0;
 }
 #root {
-  background-color: var(--background-color);
+  background-color: var(--background-color2);
   height: 100vh;
 }
 
@@ -16,23 +17,28 @@ body {
   display: flex;
   width: 80%;
   margin: 0 auto;
-  background-color: var(--background-color);
 }
 .tweets-container {
   flex-basis: 100%;
   padding: 20px;
   background-color: var(--tweetBox);
   border-radius: 10px;
+  box-shadow: 1px 1px 1px lightgrey;
 }
 .post-container {
-  width: 50%;
+  width: 100%;
   display: flex;
 }
 #post {
-  flex-basis: 100%;
+  width: 50%;
   border-radius: 5px;
   border: none;
   padding: 10px;
+  box-shadow: 1px 1px 1px lightgrey;
+  transition: 0.5s width ease-in;
+}
+#post:focus {
+  width: 100%;
 }
 .post-button {
   flex-basis: 10%;
@@ -40,11 +46,16 @@ body {
 #username-input {
   display: block;
   margin: 0 auto;
-  width: 80%;
+  width: 30%;
   text-align: center;
   border-radius: 5px;
   border: none;
   padding: 10px;
+  box-shadow: 1px 1px 1px lightgrey;
+  transition: 0.5s width ease-in;
+}
+#username-input:focus {
+  width: 80%;
 }
 .login-container {
   text-align: center;
@@ -63,12 +74,18 @@ body {
   }
 }
 @media only screen and (max-width: 921px) {
-  .post-container {
+  #post {
     width: 80%;
+  }
+  #post:focus {
+    width: 100%;
+  }
+  #username-input {
+    width: 40%;
   }
 }
 @media only screen and (max-width: 710px) {
-  .post-container {
+  #post {
     width: 100%;
   }
 }
@@ -79,10 +96,38 @@ body {
   .profile-container {
     margin: 0 0 20px 0;
   }
+  #post {
+    width: 50%;
+  }
+  #username-input {
+    width: 45%;
+  }
 }
 @media only screen and (max-width: 540px) {
   .profile-container {
     margin: 0 auto;
     margin-bottom: 20px;
+  }
+  #post {
+    width: 80%;
+  }
+  #username-input {
+    width: 50%;
+  }
+}
+@media only screen and (max-width: 490px) {
+  #username-input {
+    width: 70%;
+  }
+}
+@media only screen and (max-width: 350px) {
+  #post {
+    width: 100%;
+  }
+  #username-input {
+    width: 80%;
+  }
+  #username-input:focus {
+    width: 90%;
   }
 }

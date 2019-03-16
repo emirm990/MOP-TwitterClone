@@ -25,7 +25,7 @@ class App extends Component {
   }
 
   state = {
-    profilePicture: "logo.gif",
+    profilePicture: "logo.png",
     username: "",
     usernameShort: "",
     tweets: [],
@@ -142,7 +142,7 @@ class App extends Component {
         console.log("[MongoDB Stitch] Connected to Stitch");
         if (docs) {
           this.setState({
-            profilePicture: docs.profilePicture || "logo.gif",
+            profilePicture: docs.profilePicture || "logo.png",
             tweetCounter: docs.tweetCounter,
             tweets: docs.tweets,
             timesOfTweets: docs.timesOfTweets,
@@ -165,9 +165,11 @@ class App extends Component {
       return (
         <div className='login-container'>
           <div className='logo-container'>
-            <img src='logo.gif' alt='logo' />
+            <img src='logo.png' alt='logo' />
           </div>
-          <p>Welcome to Twudder</p>
+          <p>
+            Welcome to Twudder (like a twitter, but with no annoying tweets)
+          </p>
           <input
             id='username-input'
             type='text'
