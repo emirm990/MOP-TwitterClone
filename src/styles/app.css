@@ -15,12 +15,13 @@ body {
 .container {
   padding-top: 50px;
   display: flex;
-  width: 80%;
+  width: 70%;
   margin: 0 auto;
 }
 .tweets-container {
-  flex-basis: 100%;
+  flex-basis: 70%;
   padding: 20px;
+  margin: 0 20px 0 20px;
   background-color: var(--tweetBox);
   border-radius: 10px;
   box-shadow: 1px 1px 1px lightgrey;
@@ -59,6 +60,18 @@ body {
 }
 .login-container {
   text-align: center;
+  animation: animation 1s ease-in;
+}
+@keyframes animation {
+  0% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 .logo-container {
   max-width: 300px;
@@ -68,6 +81,21 @@ body {
 .logo-container img {
   max-width: 300px;
 }
+.profile-container {
+  flex-basis: 30%;
+  align-self: start;
+  padding: 20px;
+  background-color: #edeae5;
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px lightgrey;
+  position: sticky;
+  top: 50px;
+}
+@media only screen and (max-width: 1500px) {
+  .container {
+    width: 80%;
+  }
+}
 @media only screen and (max-width: 1124px) {
   .container {
     width: 98%;
@@ -75,13 +103,21 @@ body {
 }
 @media only screen and (max-width: 921px) {
   #post {
-    width: 80%;
+    width: 65%;
   }
   #post:focus {
     width: 100%;
   }
   #username-input {
     width: 40%;
+  }
+  .profile-container {
+    flex-basis: 25%;
+  }
+}
+@media only screen and (max-width: 1250px) {
+  .profile-container {
+    flex-basis: 30%;
   }
 }
 @media only screen and (max-width: 710px) {
@@ -95,6 +131,7 @@ body {
   }
   .profile-container {
     margin: 0 0 20px 0;
+    position: inherit;
   }
   #post {
     width: 50%;

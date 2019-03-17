@@ -49,7 +49,7 @@ class App extends Component {
         username: this.state.usernameValue,
         usernameShort: this.state.usernameValue.toLowerCase().replace(/\s/g, "")
       });
-      this.postTweetAndUpdateDd();
+      this.postTweetAndUpdateDb();
     }
   }
 
@@ -77,10 +77,10 @@ class App extends Component {
         tweetCounter: this.state.tweets.length,
         tweetValue: ""
       });
-      this.postTweetAndUpdateDd();
+      this.postTweetAndUpdateDb();
     }
   }
-  postTweetAndUpdateDd() {
+  postTweetAndUpdateDb() {
     this.user.then(user =>
       this.db
         .collection("users")
@@ -89,14 +89,10 @@ class App extends Component {
           {
             $set: {
               profilePicture: this.state.profilePicture,
-              username: this.state.usernameValue,
-              usernameShort: this.state.usernameValue
-                .toLowerCase()
-                .replace(/\s/g, ""),
+              username: this.state.username,
+              usernameShort: this.state.usernameShort,
               tweets: this.state.tweets,
-              tweetValue: this.state.tweetValue,
               timesOfTweets: this.state.timesOfTweets,
-              usernameValue: this.state.usernameValue,
               tweetCounter: this.state.tweetCounter
             }
           },
@@ -147,8 +143,7 @@ class App extends Component {
             tweets: docs.tweets,
             timesOfTweets: docs.timesOfTweets,
             username: docs.username,
-            usernameShort: docs.usernameShort,
-            tweetValue: docs.tweetValue
+            usernameShort: docs.usernameShort
           });
         }
       })
@@ -163,7 +158,7 @@ class App extends Component {
   render() {
     if (this.state.username === "") {
       return (
-        <div className='login-container'>
+        <div className='login-container animation'>
           <div className='logo-container'>
             <img src='logo.png' alt='logo' />
           </div>
