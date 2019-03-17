@@ -23,6 +23,9 @@
 .uploader:hover {
   opacity: 1;
 }
+.uploadcare--widget__button {
+  cursor: pointer;
+}
 .profile-container:hover .uploader {
   opacity: 1;
 }

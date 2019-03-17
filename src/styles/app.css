@@ -45,12 +45,14 @@ body {
   transition: transform 0.5s ease-in;
   white-space: nowrap;
   padding-left: 10px;
+  cursor: text;
 }
 #post:focus {
   width: 100%;
 }
 #post:focus + .post-label {
   transform: translateY(-125%);
+  cursor: default;
 }
 .post-button {
   flex-basis: 10%;
@@ -71,6 +73,7 @@ body {
 }
 #username-input:focus + .username-input-label {
   top: 25%;
+  cursor: default;
 }
 .username-input-container {
   position: relative;
@@ -81,6 +84,8 @@ body {
   top: 80%;
   transform: translate(-50%, -50%);
   transition: top 0.5s ease-in;
+  cursor: text;
+  width: 100%;
 }
 .login-container {
   text-align: center;
@@ -163,7 +168,7 @@ body {
     width: 50%;
   }
   #username-input {
-    width: 45%;
+    width: 55%;
   }
 }
 @media only screen and (max-width: 540px) {
@@ -175,7 +180,12 @@ body {
     width: 80%;
   }
   #username-input {
-    width: 50%;
+    width: 70%;
+  }
+}
+@media only screen and (max-width: 570px) {
+  #username-input {
+    width: 70%;
   }
 }
 @media only screen and (max-width: 490px) {
@@ -187,13 +197,16 @@ body {
   #post {
     width: 100%;
   }
+  #username-input {
+    width: 85%;
+  }
 }
 @media only screen and (max-width: 365px) {
   #post {
     width: 100%;
   }
   #username-input {
-    width: 80%;
+    width: 90%;
   }
   #username-input:focus {
     width: 90%;
