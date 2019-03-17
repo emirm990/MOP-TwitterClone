@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Twudder",
+  "name": "Twudder - a twitter cloe",
   "icons": [
     {
       "src": "favicon.ico",
