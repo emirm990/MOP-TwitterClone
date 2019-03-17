@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/MOP-TwitterClone/static/js/runtime~main.e346ef8c.js"
   },
   {
-    "revision": "ae51dff7ea1d9e0ea4cb",
+    "revision": "0247c066aa5ffe41726c",
     "url": "/MOP-TwitterClone/static/js/main.5a00e54b.chunk.js"
   },
   {
@@ -12,11 +12,11 @@ self.__precacheManifest = [
     "url": "/MOP-TwitterClone/static/js/2.13c4ec98.chunk.js"
   },
   {
-    "revision": "ae51dff7ea1d9e0ea4cb",
-    "url": "/MOP-TwitterClone/static/css/main.b9e1b26c.chunk.css"
+    "revision": "0247c066aa5ffe41726c",
+    "url": "/MOP-TwitterClone/static/css/main.6973af52.chunk.css"
   },
   {
-    "revision": "d8d6118003d24762754f71f5e18cc1aa",
+    "revision": "340482a5500f246c12fb5307cff2542a",
     "url": "/MOP-TwitterClone/index.html"
   }
 ];

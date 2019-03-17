@@ -1,5 +1,5 @@
 {
-  "main.css": "/MOP-TwitterClone/static/css/main.b9e1b26c.chunk.css",
+  "main.css": "/MOP-TwitterClone/static/css/main.6973af52.chunk.css",
   "main.js": "/MOP-TwitterClone/static/js/main.5a00e54b.chunk.js",
   "main.js.map": "/MOP-TwitterClone/static/js/main.5a00e54b.chunk.js.map",
   "runtime~main.js": "/MOP-TwitterClone/static/js/runtime~main.e346ef8c.js",
@@ -7,7 +7,7 @@
   "static/js/2.13c4ec98.chunk.js": "/MOP-TwitterClone/static/js/2.13c4ec98.chunk.js",
   "static/js/2.13c4ec98.chunk.js.map": "/MOP-TwitterClone/static/js/2.13c4ec98.chunk.js.map",
   "index.html": "/MOP-TwitterClone/index.html",
-  "precache-manifest.64612316b5adf19816cb3a14388ac498.js": "/MOP-TwitterClone/precache-manifest.64612316b5adf19816cb3a14388ac498.js",
+  "precache-manifest.80c5e3dec0ea78d107ef1996afb0f60c.js": "/MOP-TwitterClone/precache-manifest.80c5e3dec0ea78d107ef1996afb0f60c.js",
   "service-worker.js": "/MOP-TwitterClone/service-worker.js",
-  "static/css/main.b9e1b26c.chunk.css.map": "/MOP-TwitterClone/static/css/main.b9e1b26c.chunk.css.map"
+  "static/css/main.6973af52.chunk.css.map": "/MOP-TwitterClone/static/css/main.6973af52.chunk.css.map"
 }
