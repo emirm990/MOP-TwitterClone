@@ -163,14 +163,18 @@ class App extends Component {
           <p>
             Welcome to Twudder (like a twitter, but with no annoying tweets)
           </p>
-          <input
-            id='username-input'
-            type='text'
-            placeholder='Please enter your name and press Enter'
-            value={this.state.usernameValue}
-            onChange={this.usernameInput}
-            onKeyDown={this.usernameInputKeyHandler}
-          />
+          <div className='username-input-container'>
+            <input
+              id='username-input'
+              type='text'
+              value={this.state.usernameValue}
+              onChange={this.usernameInput}
+              onKeyDown={this.usernameInputKeyHandler}
+            />
+            <label className='username-input-label' htmlFor='username-input'>
+              Please enter your name and press Enter
+            </label>
+          </div>
         </div>
       );
     } else {
@@ -207,11 +211,13 @@ class App extends Component {
               <input
                 id='post'
                 type='text'
-                placeholder='Please enter your tweet and press Enter'
                 value={this.state.tweetValue}
                 onChange={this.handleTweetChange}
                 onKeyDown={this.handleTweetKeyDown}
               />
+              <label className='post-label' htmlFor='post'>
+                Please enter your tweet and press Enter
+              </label>
             </div>
             <TweetBox
               tweets={this.state.tweets}

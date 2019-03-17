@@ -20,7 +20,7 @@ body {
 }
 .tweets-container {
   flex-basis: 70%;
-  padding: 20px;
+  padding: 30px;
   margin: 0 20px 0 20px;
   background-color: var(--tweetBox);
   border-radius: 10px;
@@ -29,6 +29,7 @@ body {
 .post-container {
   width: 100%;
   display: flex;
+  position: relative;
 }
 #post {
   width: 50%;
@@ -38,8 +39,18 @@ body {
   box-shadow: 1px 1px 1px lightgrey;
   transition: 0.5s width ease-in;
 }
+.post-label {
+  position: absolute;
+  transform: translateY(50%);
+  transition: transform 0.5s ease-in;
+  white-space: nowrap;
+  padding-left: 10px;
+}
 #post:focus {
   width: 100%;
+}
+#post:focus + .post-label {
+  transform: translateY(-125%);
 }
 .post-button {
   flex-basis: 10%;
@@ -57,6 +68,19 @@ body {
 }
 #username-input:focus {
   width: 80%;
+}
+#username-input:focus + .username-input-label {
+  top: 25%;
+}
+.username-input-container {
+  position: relative;
+  padding-top: 50px;
+}
+.username-input-label {
+  position: absolute;
+  top: 80%;
+  transform: translate(-50%, -50%);
+  transition: top 0.5s ease-in;
 }
 .login-container {
   text-align: center;
@@ -157,6 +181,11 @@ body {
 @media only screen and (max-width: 490px) {
   #username-input {
     width: 70%;
+  }
+}
+@media only screen and (max-width: 440px) {
+  #post {
+    width: 100%;
   }
 }
 @media only screen and (max-width: 350px) {
