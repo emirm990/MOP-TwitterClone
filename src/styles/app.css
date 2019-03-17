@@ -6,6 +6,7 @@
 }
 body {
   margin: 0;
+  font-family: "Ubuntu", sans-serif, "Trebuchet MS", Helvetica, sans-serif;
 }
 #root {
   background-color: var(--background-color2);
@@ -128,6 +129,7 @@ body {
 @media only screen and (max-width: 650px) {
   .container {
     flex-direction: column;
+    padding-top: 0;
   }
   .profile-container {
     margin: 0 0 80px 20px;
