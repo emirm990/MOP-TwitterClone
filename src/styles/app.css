@@ -20,7 +20,7 @@ body {
 }
 .tweets-container {
   flex-basis: 70%;
-  padding: 30px;
+  padding: 30px 5px 30px 5px;
   margin: 0 20px 0 20px;
   background-color: var(--tweetBox);
   border-radius: 10px;
@@ -188,7 +188,7 @@ body {
     width: 100%;
   }
 }
-@media only screen and (max-width: 350px) {
+@media only screen and (max-width: 365px) {
   #post {
     width: 100%;
   }
@@ -197,5 +197,8 @@ body {
   }
   #username-input:focus {
     width: 90%;
+  }
+  .tweets-container {
+    margin: 0;
   }
 }
