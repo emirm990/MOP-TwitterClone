@@ -130,8 +130,8 @@ body {
     flex-direction: column;
   }
   .profile-container {
-    margin: 0 0 20px 0;
-    position: inherit;
+    margin: 0 0 80px 20px;
+    position: relative;
   }
   #post {
     width: 50%;
@@ -143,7 +143,7 @@ body {
 @media only screen and (max-width: 540px) {
   .profile-container {
     margin: 0 auto;
-    margin-bottom: 20px;
+    margin-bottom: 80px;
   }
   #post {
     width: 80%;
