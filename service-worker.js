@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/MOP%20TwitterClone/precache-manifest.badeff4a17b67d20f1397ae113d56c12.js"
+  "/MOP-TwitterClone/precache-manifest.19f3ba84372476d2c08886bb6d0ce9fc.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/MOP%20TwitterClone/index.html", {
+workbox.routing.registerNavigationRoute("/MOP-TwitterClone/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
