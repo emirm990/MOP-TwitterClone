@@ -1,5 +1,4 @@
 :root {
-  --background-color: #bfede9;
   --background-color2: rgba(191, 237, 233, 0.5);
   --tweetBox: #edeae5;
   --tweet: #fef9c7;
@@ -97,6 +96,11 @@ body {
     width: 80%;
   }
 }
+@media only screen and (max-width: 1250px) {
+  .profile-container {
+    flex-basis: 30%;
+  }
+}
 @media only screen and (max-width: 1124px) {
   .container {
     width: 98%;
@@ -116,11 +120,7 @@ body {
     flex-basis: 25%;
   }
 }
-@media only screen and (max-width: 1250px) {
-  .profile-container {
-    flex-basis: 30%;
-  }
-}
+
 @media only screen and (max-width: 710px) {
   #post {
     width: 100%;

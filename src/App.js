@@ -134,8 +134,6 @@ class App extends Component {
           .findOne({ owner_id: this.client.auth.user.id })
       )
       .then(docs => {
-        console.log("Found docs", docs);
-        console.log("[MongoDB Stitch] Connected to Stitch");
         if (docs) {
           this.setState({
             profilePicture: docs.profilePicture || "logo.png",
