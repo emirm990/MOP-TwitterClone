@@ -9,7 +9,7 @@ const Tweet = props => {
         <img src={props.profilePicture} alt='profile' />
       </div>
       <div className='tweet-content'>
-        <span className='tweet-username'>@{props.usernameShort} </span>
+        <span className='tweet-username'>{props.usernameShort}</span>
         <Timestamp
           className='tweet-time'
           time={props.timesOfTweet}

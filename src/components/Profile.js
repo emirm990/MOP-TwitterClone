@@ -8,7 +8,7 @@ const Profile = props => {
       </div>
       <div className='profile-info'>
         <div>{props.username}</div>
-        <div>@{props.usernameShort}</div>
+        <div>{props.usernameShort}</div>
         <div>Tweets: {props.tweetCounter}</div>
       </div>
     </div>

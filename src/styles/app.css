@@ -11,7 +11,33 @@ body {
   background-color: var(--background-color2);
   min-height: 100vh;
 }
-
+.search-container {
+  width: 70%;
+  margin: 0 auto;
+}
+.search-input-container {
+  display: flex;
+  margin-right: 20px;
+}
+.search-input-container input {
+  flex-basis: 100%;
+  border-radius: 5px 0 0 5px;
+  border: none;
+  box-shadow: 1px 1px 1px lightgrey;
+  padding: 10px;
+  font-family: "Ubuntu", sans-serif, "Trebuchet MS", Helvetica, sans-serif;
+}
+.search-input-container button {
+  border-radius: 0px 5px 5px 0px;
+  border: none;
+  box-shadow: 1px 1px 1px lightgrey;
+  background-color: var(--tweetBox);
+  transition: 0.2s background-color ease-in;
+  font-family: "Ubuntu", sans-serif, "Trebuchet MS", Helvetica, sans-serif;
+}
+.search-input-container button:hover {
+  background-color: white;
+}
 .container {
   padding-top: 50px;
   display: flex;
@@ -23,8 +49,31 @@ body {
   padding: 30px 5px 30px 5px;
   margin: 0 20px 0 20px;
   background-color: var(--tweetBox);
-  border-radius: 10px;
+  border-radius: 0px 10px 10px 10px;
   box-shadow: 1px 1px 1px lightgrey;
+}
+.buttons-container {
+  padding-left: 20px;
+}
+.buttons-and-tweets {
+  flex-basis: 100%;
+}
+.button {
+  border-radius: 5px 5px 0px 0px;
+  padding: 10px;
+  border: none;
+
+  background-color: var(--background-color2);
+  transition: 0.2s background-color ease-in;
+  font-family: "Ubuntu", sans-serif, "Trebuchet MS", Helvetica, sans-serif;
+  outline: none;
+  cursor: pointer;
+}
+.--active {
+  background-color: var(--tweetBox);
+}
+.button:hover {
+  background-color: var(--tweetBox);
 }
 .post-container {
   width: 100%;
@@ -37,12 +86,12 @@ body {
   border: none;
   padding: 10px;
   box-shadow: 1px 1px 1px lightgrey;
-  transition: 0.5s width ease-in;
+  transition: 0.2s width ease-in;
 }
 .post-label {
   position: absolute;
   transform: translateY(50%);
-  transition: transform 0.5s ease-in;
+  transition: transform 0.2s ease-in;
   white-space: nowrap;
   padding-left: 10px;
   cursor: text;
@@ -66,7 +115,7 @@ body {
   border: none;
   padding: 10px;
   box-shadow: 1px 1px 1px lightgrey;
-  transition: 0.5s width ease-in;
+  transition: 0.2s width ease-in;
 }
 #username-input:focus {
   width: 80%;
@@ -83,7 +132,7 @@ body {
   position: absolute;
   top: 80%;
   transform: translate(-50%, -50%);
-  transition: top 0.5s ease-in;
+  transition: top 0.2s ease-in;
   cursor: text;
   width: 100%;
 }
@@ -124,6 +173,9 @@ body {
   .container {
     width: 80%;
   }
+  .search-container {
+    width: 80%;
+  }
 }
 @media only screen and (max-width: 1250px) {
   .profile-container {
@@ -132,6 +184,9 @@ body {
 }
 @media only screen and (max-width: 1124px) {
   .container {
+    width: 98%;
+  }
+  .search-container {
     width: 98%;
   }
 }
@@ -149,7 +204,11 @@ body {
     flex-basis: 25%;
   }
 }
-
+@media only screen and (max-width: 813px) {
+  #post {
+    width: 85%;
+  }
+}
 @media only screen and (max-width: 710px) {
   #post {
     width: 100%;

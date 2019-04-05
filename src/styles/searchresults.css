@@ -1,0 +1,13 @@
+.search-list {
+  list-style-type: none;
+  margin-top: 0;
+  margin-right: 20px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 0 0px 10px 10px;
+  box-shadow: 1px 1px 1px lightgrey;
+}
+.search-list-item {
+  padding-top: 25px;
+  padding-bottom: 25px;
+}

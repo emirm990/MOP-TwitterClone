@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Profile from "./components/Profile.js";
 import TweetBox from "./components/TweetBox.js";
 import Uploader from "./components/Uploader";
+import NewTweetBox from "./components/NewTweetBox.js";
+import SearchResults from "./components/SearchResults.js";
 import {
   Stitch,
   RemoteMongoClient,
@@ -12,27 +14,38 @@ import "./styles/app.css";
 class App extends Component {
   constructor(props) {
     super(props);
+    this.usernameInput = this.usernameInput.bind(this);
+    this.usernameInputKeyHandler = this.usernameInputKeyHandler.bind(this);
     this.handleTweetChange = this.handleTweetChange.bind(this);
     this.handleTweetKeyDown = this.handleTweetKeyDown.bind(this);
     this.post = this.post.bind(this);
-    this.usernameInput = this.usernameInput.bind(this);
-    this.usernameInputKeyHandler = this.usernameInputKeyHandler.bind(this);
+    this.updateDb = this.updateDb.bind(this);
+    this.uploadPicture = this.uploadPicture.bind(this);
+    this.getSearch = this.getSearch.bind(this);
+    this.clearSearch = this.clearSearch.bind(this);
+    this.searchResults = this.searchResults.bind(this);
+    this.follow = this.follow.bind(this);
+    this.unfollow = this.unfollow.bind(this);
+    this.setIntitalState = this.setIntitalState.bind(this);
+
     this.client = Stitch.initializeDefaultAppClient("twitter-clone-hgeer");
     this.db = this.client
       .getServiceClient(RemoteMongoClient.factory, "mongodb-atlas")
       .db("twitter-clone");
     this.user = this.client.auth.loginWithCredential(new AnonymousCredential());
   }
-
   state = {
     profilePicture: "logo.png",
     username: "",
-    usernameShort: "",
-    tweets: [],
     timesOfTweets: [],
+    tweets: [],
     tweetValue: "",
     usernameValue: "",
-    tweetCounter: 0
+    search: "",
+    searchEmpty: true,
+    searchResultsArray: [],
+    following: [],
+    home: true
   };
 
   usernameInput(event) {
@@ -46,10 +59,8 @@ class App extends Component {
         alert("name can't be empty");
       }
       this.setState({
-        username: this.state.usernameValue,
-        usernameShort: this.state.usernameValue.toLowerCase().replace(/\s/g, "")
+        username: this.state.usernameValue
       });
-      this.postTweetAndUpdateDb();
     }
   }
 
@@ -74,57 +85,107 @@ class App extends Component {
       this.setState({
         tweets: newTweet,
         timesOfTweets: newTweetTime,
-        tweetCounter: this.state.tweets.length,
         tweetValue: ""
       });
-      this.postTweetAndUpdateDb();
+      this.updateDb();
     }
   }
-  postTweetAndUpdateDb() {
-    this.user.then(user =>
-      this.db
-        .collection("users")
-        .updateOne(
-          { owner_id: this.client.auth.user.id },
-          {
-            $set: {
-              profilePicture: this.state.profilePicture,
-              username: this.state.username,
-              usernameShort: this.state.usernameShort,
-              tweets: this.state.tweets,
-              timesOfTweets: this.state.timesOfTweets,
-              tweetCounter: this.state.tweetCounter
-            }
-          },
-          { upsert: true }
-        )
-        .catch(err => {
-          console.error(err);
-        })
-    );
+  updateDb() {
+    this.db
+      .collection("users")
+      .updateOne(
+        { owner_id: this.client.auth.user.id },
+        {
+          $set: {
+            profilePicture: this.state.profilePicture,
+            username: this.state.usernameValue || this.state.username,
+            tweets: this.state.tweets,
+            timesOfTweets: this.state.timesOfTweets,
+            following: this.state.following
+          }
+        },
+        { upsert: true }
+      )
+      .catch(err => {
+        console.error(err);
+      });
   }
   uploadPicture(info) {
-    this.user.then(user =>
-      this.db
-        .collection("users")
-        .updateOne(
-          { owner_id: this.client.auth.user.id },
-          {
-            $set: {
-              profilePicture:
-                "https://ucarecdn.com/" + info.uuid + "/-/resize/150x/"
-            }
-          },
-          this.setState({
+    this.db
+      .collection("users")
+      .updateOne(
+        { owner_id: this.client.auth.user.id },
+        {
+          $set: {
             profilePicture:
               "https://ucarecdn.com/" + info.uuid + "/-/resize/150x/"
-          }),
-          { upsert: true }
-        )
-        .catch(err => {
-          console.error(err);
-        })
-    );
+          }
+        },
+        this.setState({
+          profilePicture:
+            "https://ucarecdn.com/" + info.uuid + "/-/resize/150x/"
+        }),
+        { upsert: true }
+      )
+      .catch(err => {
+        console.error(err);
+      });
+  }
+
+  getSearch(event) {
+    if (event.target.value !== "") {
+      this.setState({
+        searchEmpty: false
+      });
+      this.searchResults(event.target.value);
+    } else {
+      this.setState({
+        searchEmpty: true
+      });
+    }
+    this.setState({
+      search: event.target.value
+    });
+  }
+  clearSearch() {
+    this.setState({
+      searchEmpty: true,
+      search: ""
+    });
+  }
+  searchResults(arg) {
+    this.db
+      .collection("users")
+      .find({ username: new RegExp(arg) })
+      .toArray()
+      .then(results => {
+        if (results.length > 0) {
+          this.setState({
+            searchResultsArray: [...results]
+          });
+        }
+        console.log(results);
+      });
+  }
+  follow(item) {
+    let newFollowing = this.state.following;
+    newFollowing.push(item);
+    this.setState({
+      following: [...newFollowing]
+    });
+  }
+  unfollow(item) {
+    let newFollowing = this.state.following.filter(function(el) {
+      return el.owner_id !== item.owner_id;
+    });
+    if (newFollowing.length === 0) {
+      this.setState({
+        following: []
+      });
+    }
+    this.setState({
+      following: [...newFollowing]
+    });
   }
   setIntitalState() {
     this.user
@@ -141,7 +202,7 @@ class App extends Component {
             tweets: docs.tweets,
             timesOfTweets: docs.timesOfTweets,
             username: docs.username,
-            usernameShort: docs.usernameShort
+            following: docs.following
           });
         }
       })
@@ -149,9 +210,18 @@ class App extends Component {
         console.error(err);
       });
   }
-
   componentDidMount() {
     this.setIntitalState();
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      this.state.profilePicture !== prevState.profilePicture ||
+      this.state.tweets !== prevState.tweets ||
+      this.state.username !== prevState.username ||
+      this.state.following !== prevState.following
+    ) {
+      this.updateDb();
+    }
   }
   render() {
     if (this.state.username === "") {
@@ -179,57 +249,102 @@ class App extends Component {
       );
     } else {
       return (
-        <div className='container'>
-          <div className='profile-container'>
-            <Profile
-              profilePicture={this.state.profilePicture}
-              username={this.state.username}
-              usernameShort={this.state.usernameShort}
-              tweetCounter={this.state.tweetCounter}
-            />
-            <div className='uploader'>
-              <label htmlFor='file'>Change Picture:</label>{" "}
-              <Uploader
-                id='file'
-                name='file'
-                data-tabs='file camera'
-                onChange={file => {
-                  console.log("File changed: ", file);
-                  if (file) {
-                    file.progress(info =>
-                      console.log("File progress: ", info.progress)
-                    );
-                    file.done(info => console.log("File uploaded: ", info));
-                  }
-                }}
-                onUploadComplete={info => this.uploadPicture(info)}
-              />
-            </div>
-          </div>
-          <div className='tweets-container'>
-            <div className='post-container'>
+        <React.Fragment>
+          <div className='search-container'>
+            <div className='search-input-container'>
               <input
-                id='post'
+                id='search'
                 type='text'
-                value={this.state.tweetValue}
-                onChange={this.handleTweetChange}
-                onKeyDown={this.handleTweetKeyDown}
+                value={this.state.search}
+                onChange={this.getSearch}
+                placeholder='Search...'
               />
-              <label className='post-label' htmlFor='post'>
-                Please enter your tweet and press Enter
-              </label>
+              <button onClick={this.clearSearch}>Clear</button>
             </div>
-            <TweetBox
-              tweets={this.state.tweets}
-              timesOfTweets={this.state.timesOfTweets}
-              usernameShort={this.state.usernameShort}
-              profilePicture={this.state.profilePicture}
-            />
+            {!this.state.searchEmpty ? (
+              <SearchResults
+                searchResultsArray={this.state.searchResultsArray}
+                following={this.state.following}
+                follow={this.follow}
+                unfollow={this.unfollow}
+              />
+            ) : null}
           </div>
-        </div>
+          <div className='container'>
+            <div className='profile-container'>
+              <Profile
+                profilePicture={this.state.profilePicture}
+                username={this.state.username}
+                usernameShort={
+                  "@" + this.state.username.toLowerCase().replace(/\s/g, "")
+                }
+                tweetCounter={this.state.tweets.length}
+              />
+              <div className='uploader'>
+                <label htmlFor='file'>Change Picture:</label>{" "}
+                <Uploader
+                  id='file'
+                  name='file'
+                  data-tabs='file camera'
+                  onChange={file => {
+                    console.log("File changed: ", file);
+                    if (file) {
+                      file.progress(info =>
+                        console.log("File progress: ", info.progress)
+                      );
+                      file.done(info => console.log("File uploaded: ", info));
+                    }
+                  }}
+                  onUploadComplete={info => this.uploadPicture(info)}
+                />
+              </div>
+            </div>
+            <div className='buttons-and-tweets'>
+              <div className='buttons-container'>
+                <button
+                  className={this.state.home ? "button --active" : "button"}
+                  onClick={() => this.setState({ home: true })}
+                >
+                  Home
+                </button>
+                <button
+                  className={this.state.home ? "button" : "button --active"}
+                  onClick={() => this.setState({ home: false })}
+                >
+                  Feed
+                </button>
+              </div>
+              <div className='tweets-container'>
+                <div className='post-container'>
+                  <input
+                    id='post'
+                    type='text'
+                    value={this.state.tweetValue}
+                    onChange={this.handleTweetChange}
+                    onKeyDown={this.handleTweetKeyDown}
+                  />
+                  <label className='post-label' htmlFor='post'>
+                    Please enter your tweet and press Enter
+                  </label>
+                </div>
+                {this.state.home ? (
+                  <TweetBox
+                    tweets={this.state.tweets}
+                    timesOfTweets={this.state.timesOfTweets}
+                    profilePicture={this.state.profilePicture}
+                    usernameShort={
+                      "@" + this.state.username.toLowerCase().replace(/\s/g, "")
+                    }
+                  />
+                ) : (
+                  <NewTweetBox tweets={this.state.following} />
+                )}
+              </div>
+            </div>
+          </div>
+        </React.Fragment>
       );
     }
   }
 }
-
 export default App;
