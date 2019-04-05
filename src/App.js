@@ -198,11 +198,10 @@ class App extends Component {
         if (docs) {
           this.setState({
             profilePicture: docs.profilePicture || "logo.png",
-            tweetCounter: docs.tweetCounter,
             tweets: docs.tweets,
             timesOfTweets: docs.timesOfTweets,
             username: docs.username,
-            following: docs.following
+            following: docs.following || []
           });
         }
       })
@@ -220,6 +219,7 @@ class App extends Component {
       this.state.username !== prevState.username ||
       this.state.following !== prevState.following
     ) {
+      console.log("component updated");
       this.updateDb();
     }
   }
