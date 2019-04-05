@@ -1,8 +1,8 @@
 {
-  "name": "twitter-clone-ooks",
+  "name": "twitter-clone",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://emirm990.github.io/MOP-TwitterClone",
+  "homepage" : "https://emirm990.github.io/MOP-TwitterClone/",
   "dependencies": {
     "gh-pages": "^2.0.1",
     "mongodb-stitch-browser-sdk": "^4.3.2",
