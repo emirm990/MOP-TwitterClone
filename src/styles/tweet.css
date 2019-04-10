@@ -13,6 +13,7 @@
   background-color: var(--background-color2);
   border-radius: 10px 0 10px 0;
   box-shadow: 1px 1px 1px lightgrey;
+  position: relative;
 }
 .tweet-picture-container {
   height: 65px;
@@ -38,4 +39,149 @@
   flex-wrap: wrap;
   padding-left: 20px;
   width: 100%;
+  margin-right: 60px;
+}
+.comments-open {
+  display: block;
+  height: 100%;
+  margin-left: 50%;
+  margin-top: 10px;
+  padding: 0px 20px 20px 20px;
+  border-radius: 30px 0px 50px 40px;
+  justify-content: flex-end;
+  background-color: var(--background-color2);
+  box-shadow: 1px 1px 1px lightgrey;
+  animation: openComments 0.2s ease-in-out;
+}
+@keyframes openComments {
+  from {
+    opacity: 0;
+    height: 0;
+  }
+  to {
+    opacity: 1;
+    height: 100%;
+  }
+}
+.comments-open::before {
+  content: " ";
+  display: inline-block;
+  position: relative;
+  bottom: 10px;
+  width: 20px;
+  height: 20px;
+  background-color: var(--background-color2);
+  border-radius: 5px;
+  transform: rotate(-45deg);
+}
+.comments-closed {
+  display: none;
+  opacity: 0;
+  height: 0;
+}
+.comments-input {
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
+.comments-input-open {
+  width: 100%;
+  animation: openInput 0.2s ease-in-out;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 1px 1px 1px lightgrey;
+  opacity: 1;
+}
+@keyframes openInput {
+  from {
+    width: 50%;
+    opacity: 0;
+  }
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}
+@keyframes closeInput {
+  from {
+    width: 100%;
+    opacity: 1;
+  }
+  to {
+    width: 50%;
+    opacity: 0;
+  }
+}
+.comments-input-closed {
+  width: 50%;
+  animation: closeInput 0.2s ease-in-out forwards;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 1px 1px 1px lightgrey;
+}
+.open-comments-button {
+  position: absolute;
+  width: 55px;
+  height: 40px;
+  bottom: 40px;
+  border: none;
+  padding: 10px 15px 10px 15px;
+  outline: none;
+  border-radius: 0 0 10px 0;
+  box-shadow: 1px 1px 1px lightgrey;
+  transition: box-shadow 0.2s ease-in-out;
+}
+.open-comments-button:hover {
+  box-shadow: 2px 2px 2px lightgrey;
+}
+.--closed-comments {
+  bottom: 36px;
+}
+.--opened-comments {
+  bottom: 36px;
+}
+.open-comments-button svg {
+  transition: color 0.2s ease-in-out;
+}
+.open-comments-button:hover svg {
+  color: var(--background-color);
+}
+.posted-indicator {
+  position: absolute;
+  opacity: 0;
+  display: inline-block;
+  padding: 5px;
+  border: 1px solid lightgrey;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 3px;
+  background-color: var(--background-color2);
+  color: green;
+  border-radius: 5px;
+  z-index: -5;
+}
+.-not-posted {
+  opacity: 0;
+  z-index: -5;
+}
+.posted {
+  opacity: 1;
+  z-index: 10;
+  animation: posted 0.2s ease-in-out;
+}
+@keyframes posted {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media only screen and (max-width: 921px) {
+  .comments-open {
+    margin-left: 10%;
+  }
 }

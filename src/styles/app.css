@@ -91,7 +91,7 @@ body {
 .post-label {
   position: absolute;
   transform: translateY(50%);
-  transition: transform 0.2s ease-in;
+  transition: transform 0.2s ease-in, font-size 0.2s ease-in;
   white-space: nowrap;
   padding-left: 10px;
   cursor: text;
@@ -101,6 +101,7 @@ body {
 }
 #post:focus + .post-label {
   transform: translateY(-125%);
+  font-size: 90%;
   cursor: default;
 }
 .post-button {
@@ -115,13 +116,14 @@ body {
   border: none;
   padding: 10px;
   box-shadow: 1px 1px 1px lightgrey;
-  transition: 0.2s width ease-in;
+  transition: width 0.2s ease-in;
 }
 #username-input:focus {
   width: 80%;
 }
 #username-input:focus + .username-input-label {
   top: 25%;
+  font-size: 85%;
   cursor: default;
 }
 .username-input-container {
@@ -132,7 +134,7 @@ body {
   position: absolute;
   top: 80%;
   transform: translate(-50%, -50%);
-  transition: top 0.2s ease-in;
+  transition: top 0.2s ease-in, font-size 0.2s ease-in-out;
   cursor: text;
   width: 100%;
 }

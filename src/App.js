@@ -14,6 +14,7 @@ import "./styles/app.css";
 class App extends Component {
   constructor(props) {
     super(props);
+
     this.usernameInput = this.usernameInput.bind(this);
     this.usernameInputKeyHandler = this.usernameInputKeyHandler.bind(this);
     this.handleTweetChange = this.handleTweetChange.bind(this);
@@ -27,13 +28,16 @@ class App extends Component {
     this.follow = this.follow.bind(this);
     this.unfollow = this.unfollow.bind(this);
     this.setIntitalState = this.setIntitalState.bind(this);
-
+    this.comment = this.comment.bind(this);
+    this.checkForChanges = this.checkForChanges.bind(this);
+    this.checkForOwnChanges = this.checkForOwnChanges.bind(this);
     this.client = Stitch.initializeDefaultAppClient("twitter-clone-hgeer");
     this.db = this.client
       .getServiceClient(RemoteMongoClient.factory, "mongodb-atlas")
-      .db("twitter-clone");
+      .db("test");
     this.user = this.client.auth.loginWithCredential(new AnonymousCredential());
   }
+
   state = {
     profilePicture: "logo.png",
     username: "",
@@ -45,9 +49,9 @@ class App extends Component {
     searchEmpty: true,
     searchResultsArray: [],
     following: [],
-    home: true
+    home: true,
+    owner_id: ""
   };
-
   usernameInput(event) {
     this.setState({
       usernameValue: event.target.value
@@ -92,7 +96,7 @@ class App extends Component {
   }
   updateDb() {
     this.db
-      .collection("users")
+      .collection("test")
       .updateOne(
         { owner_id: this.client.auth.user.id },
         {
@@ -112,7 +116,7 @@ class App extends Component {
   }
   uploadPicture(info) {
     this.db
-      .collection("users")
+      .collection("test")
       .updateOne(
         { owner_id: this.client.auth.user.id },
         {
@@ -155,7 +159,7 @@ class App extends Component {
   }
   searchResults(arg) {
     this.db
-      .collection("users")
+      .collection("test")
       .find({ username: new RegExp(arg) })
       .toArray()
       .then(results => {
@@ -164,7 +168,6 @@ class App extends Component {
             searchResultsArray: [...results]
           });
         }
-        console.log(results);
       });
   }
   follow(item) {
@@ -191,7 +194,7 @@ class App extends Component {
     this.user
       .then(() =>
         this.db
-          .collection("users")
+          .collection("test")
           .findOne({ owner_id: this.client.auth.user.id })
       )
       .then(docs => {
@@ -201,8 +204,109 @@ class App extends Component {
             tweets: docs.tweets,
             timesOfTweets: docs.timesOfTweets,
             username: docs.username,
-            following: docs.following || []
+            following: docs.following || [],
+            owner_id: docs.owner_id
           });
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
+  comment(item, value, key) {
+    if (key === 13 && value !== "") {
+      this.user
+        .then(() =>
+          this.db.collection("test").findOne({ owner_id: item.owner_id })
+        )
+        .then(docs => {
+          let index = docs.timesOfTweets.indexOf(item.timesOfTweet);
+          let tweets = docs.tweets;
+          tweets[index] =
+            tweets[index] +
+            "&?" +
+            value +
+            " :" +
+            "@" +
+            this.state.username.toLowerCase().replace(/\s/g, "");
+          this.checkForChanges();
+          this.db
+            .collection("test")
+            .updateOne(
+              { owner_id: item.owner_id },
+              {
+                $set: {
+                  tweets: tweets
+                }
+              },
+              { upsert: true }
+            )
+            .catch(err => {
+              console.error(err);
+            });
+          if (item.owner_id === this.client.auth.user.id) {
+            this.setState({
+              tweets: tweets
+            });
+          } else {
+            this.checkForChanges();
+            this.updateDb();
+          }
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
+  }
+  checkForChanges() {
+    let list = [];
+    for (let i = 0; i < this.state.following.length; i++) {
+      list.push(this.state.following[i].owner_id);
+    }
+    this.db
+      .collection("test")
+      .find({
+        owner_id: {
+          $in: list
+        }
+      })
+      .toArray()
+      .then(results => {
+        let resultsSorted = results.sort((a, b) =>
+          a.owner_id > b.owner_id ? 1 : b.owner_id > a.owner_id ? -1 : 0
+        );
+        let followingSorted = this.state.following.sort((a, b) =>
+          a.owner_id > b.owner_id ? 1 : b.owner_id > a.owner_id ? -1 : 0
+        );
+        for (let i = 0; i < followingSorted.length; i++) {
+          for (let j = 0; j < resultsSorted[i].tweets.length; j++) {
+            if (
+              resultsSorted[i].tweets[j] !== followingSorted[i].tweets[j] ||
+              resultsSorted[i].profilePicture !==
+                followingSorted[i].profilePicture
+            ) {
+              this.setState({
+                following: resultsSorted
+              });
+            }
+          }
+        }
+      });
+  }
+  checkForOwnChanges() {
+    this.user
+      .then(() =>
+        this.db
+          .collection("test")
+          .findOne({ owner_id: this.client.auth.user.id })
+      )
+      .then(docs => {
+        for (let i = 0; i < docs.tweets.length; i++) {
+          if (docs.tweets[i] !== this.state.tweets[i]) {
+            this.setState({
+              tweets: docs.tweets
+            });
+          } else break;
         }
       })
       .catch(err => {
@@ -211,17 +315,23 @@ class App extends Component {
   }
   componentDidMount() {
     this.setIntitalState();
+    this.interval = setInterval(() => this.checkForChanges(), 1000);
+    this.selfInterval = setInterval(() => this.checkForOwnChanges(), 1000);
   }
   componentDidUpdate(prevProps, prevState) {
     if (
       this.state.profilePicture !== prevState.profilePicture ||
       this.state.tweets !== prevState.tweets ||
       this.state.username !== prevState.username ||
-      this.state.following !== prevState.following
+      this.state.following !== prevState.following ||
+      this.state.home !== prevState.home
     ) {
-      console.log("component updated");
+      this.checkForChanges();
       this.updateDb();
     }
+  }
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
   render() {
     if (this.state.username === "") {
@@ -315,18 +425,21 @@ class App extends Component {
                 </button>
               </div>
               <div className='tweets-container'>
-                <div className='post-container'>
-                  <input
-                    id='post'
-                    type='text'
-                    value={this.state.tweetValue}
-                    onChange={this.handleTweetChange}
-                    onKeyDown={this.handleTweetKeyDown}
-                  />
-                  <label className='post-label' htmlFor='post'>
-                    Please enter your tweet and press Enter
-                  </label>
-                </div>
+                {this.state.home ? (
+                  <div className='post-container'>
+                    <input
+                      id='post'
+                      type='text'
+                      value={this.state.tweetValue}
+                      onChange={this.handleTweetChange}
+                      onKeyDown={this.handleTweetKeyDown}
+                    />
+                    <label className='post-label' htmlFor='post'>
+                      Please enter your tweet and press Enter
+                    </label>
+                  </div>
+                ) : null}
+
                 {this.state.home ? (
                   <TweetBox
                     tweets={this.state.tweets}
@@ -335,9 +448,14 @@ class App extends Component {
                     usernameShort={
                       "@" + this.state.username.toLowerCase().replace(/\s/g, "")
                     }
+                    comment={this.comment}
+                    owner_id={this.state.owner_id}
                   />
                 ) : (
-                  <NewTweetBox tweets={this.state.following} />
+                  <NewTweetBox
+                    tweets={this.state.following}
+                    comment={this.comment}
+                  />
                 )}
               </div>
             </div>

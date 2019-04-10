@@ -15,7 +15,8 @@ const NewTweetBox = props => {
             timesOfTweets,
             times.tweets[index],
             times.username,
-            times.profilePicture
+            times.profilePicture,
+            times.owner_id
           ]);
           return (newTimesSorted = timesSorted.sort(function(a, b) {
             return b[0] - a[0];
@@ -34,11 +35,14 @@ const NewTweetBox = props => {
         <ul>
           {newTimesSorted.map((item, index) => (
             <Tweet
+              datakey={index}
               key={index}
               usernameShort={"@" + item[2].toLowerCase().replace(/\s/g, "")}
               timesOfTweet={item[0]}
               profilePicture={item[3]}
               tweet={item[1]}
+              comment={props.comment}
+              owner_id={item[4]}
             />
           ))}
         </ul>

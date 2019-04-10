@@ -15,6 +15,8 @@ const TweetBox = props => {
             timesOfTweet={props.timesOfTweets[index]}
             usernameShort={props.usernameShort}
             profilePicture={props.profilePicture}
+            comment={props.comment}
+            owner_id={props.owner_id}
           />
         ))}
       </ul>
