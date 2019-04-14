@@ -225,6 +225,10 @@ body {
     margin: 0 0 80px 20px;
     position: relative;
   }
+  .search-input-container {
+    margin-right: 0;
+    margin-left: 20px;
+  }
   #post {
     width: 50%;
   }
@@ -236,6 +240,9 @@ body {
   .profile-container {
     margin: 0 auto;
     margin-bottom: 80px;
+  }
+  .search-input-container {
+    margin-left: 0;
   }
   #post {
     width: 80%;

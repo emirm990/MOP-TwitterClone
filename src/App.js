@@ -190,6 +190,7 @@ class App extends Component {
       following: [...newFollowing]
     });
   }
+
   setIntitalState() {
     this.user
       .then(() =>
@@ -278,18 +279,22 @@ class App extends Component {
         let followingSorted = this.state.following.sort((a, b) =>
           a.owner_id > b.owner_id ? 1 : b.owner_id > a.owner_id ? -1 : 0
         );
-        for (let i = 0; i < followingSorted.length; i++) {
-          for (let j = 0; j < resultsSorted[i].tweets.length; j++) {
-            if (
-              resultsSorted[i].tweets[j] !== followingSorted[i].tweets[j] ||
-              resultsSorted[i].profilePicture !==
-                followingSorted[i].profilePicture
-            ) {
-              this.setState({
-                following: resultsSorted
-              });
+        try {
+          for (let i = 0; i < followingSorted.length; i++) {
+            for (let j = 0; j < resultsSorted[i].tweets.length; j++) {
+              if (
+                resultsSorted[i].tweets[j] !== followingSorted[i].tweets[j] ||
+                resultsSorted[i].profilePicture !==
+                  followingSorted[i].profilePicture
+              ) {
+                this.setState({
+                  following: resultsSorted
+                });
+              }
             }
           }
+        } catch (err) {
+          console.log(err);
         }
       });
   }
@@ -389,6 +394,8 @@ class App extends Component {
                   "@" + this.state.username.toLowerCase().replace(/\s/g, "")
                 }
                 tweetCounter={this.state.tweets.length}
+                following={this.state.following}
+                unfollow={this.unfollow}
               />
               <div className='uploader'>
                 <label htmlFor='file'>Change Picture:</label>{" "}

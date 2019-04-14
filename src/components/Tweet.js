@@ -11,10 +11,14 @@ const Tweet = props => {
   useEffect(() => {
     let formated = [];
     formated[0] = props.tweet;
-    if (formated[0].length === 1) {
-      comments = formated[0][0].split("&?");
-    } else {
-      comments = formated[0].split("&?");
+    try {
+      if (formated[0].length === 1) {
+        comments = formated[0][0].split("&?");
+      } else {
+        comments = formated[0].split("&?");
+      }
+    } catch (err) {
+      console.log(err);
     }
     setComment(comments);
   }, [props.tweet]);
