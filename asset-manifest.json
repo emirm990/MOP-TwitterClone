@@ -1,13 +1,13 @@
 {
-  "main.css": "/MOP-TwitterClone/static/css/main.c27a3329.chunk.css",
-  "main.js": "/MOP-TwitterClone/static/js/main.41591158.chunk.js",
-  "main.js.map": "/MOP-TwitterClone/static/js/main.41591158.chunk.js.map",
+  "main.css": "/MOP-TwitterClone/static/css/main.6a7c3d35.chunk.css",
+  "main.js": "/MOP-TwitterClone/static/js/main.8dcc811f.chunk.js",
+  "main.js.map": "/MOP-TwitterClone/static/js/main.8dcc811f.chunk.js.map",
   "runtime~main.js": "/MOP-TwitterClone/static/js/runtime~main.e346ef8c.js",
   "runtime~main.js.map": "/MOP-TwitterClone/static/js/runtime~main.e346ef8c.js.map",
-  "static/js/2.00391797.chunk.js": "/MOP-TwitterClone/static/js/2.00391797.chunk.js",
-  "static/js/2.00391797.chunk.js.map": "/MOP-TwitterClone/static/js/2.00391797.chunk.js.map",
+  "static/js/2.d642d7a6.chunk.js": "/MOP-TwitterClone/static/js/2.d642d7a6.chunk.js",
+  "static/js/2.d642d7a6.chunk.js.map": "/MOP-TwitterClone/static/js/2.d642d7a6.chunk.js.map",
   "index.html": "/MOP-TwitterClone/index.html",
-  "precache-manifest.9bfbf880665f281c7a0d34ef33d63202.js": "/MOP-TwitterClone/precache-manifest.9bfbf880665f281c7a0d34ef33d63202.js",
+  "precache-manifest.f8dc9941941296589262ce048efa9768.js": "/MOP-TwitterClone/precache-manifest.f8dc9941941296589262ce048efa9768.js",
   "service-worker.js": "/MOP-TwitterClone/service-worker.js",
-  "static/css/main.c27a3329.chunk.css.map": "/MOP-TwitterClone/static/css/main.c27a3329.chunk.css.map"
+  "static/css/main.6a7c3d35.chunk.css.map": "/MOP-TwitterClone/static/css/main.6a7c3d35.chunk.css.map"
 }
