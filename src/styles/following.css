@@ -1,0 +1,86 @@
+.profile-following {
+  display: flex;
+  flex-wrap: wrap;
+  box-shadow: 1px 1px 1px lightgrey;
+  border-radius: 0 5px 5px 0;
+}
+.profile-following p {
+  flex-basis: 100%;
+}
+.profile-following-item {
+  display: flex;
+  max-height: 50px;
+  width: 100px;
+  position: relative;
+  margin-right: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  box-shadow: 1px 1px 1px lightgrey;
+  border-radius: 0 5px 5px 0;
+}
+.profile-following-image {
+  max-height: 50px;
+  border-radius: 5px 0 5px 0;
+}
+.profile-following-username {
+  margin: 0 auto;
+  align-self: center;
+  text-align: center;
+}
+.profile-following-modal {
+  position: absolute;
+  bottom: 0px;
+  border-radius: 10px;
+  background-color: rgb(237, 234, 229);
+  box-sizing: border-box;
+  display: flex;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 99;
+  transition: visibility 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  box-shadow: 1px 1px 1px lightgrey;
+}
+.profile-following-modal img {
+  border-radius: 10px 0 0 0;
+}
+.profile-following-modal-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+.profile-following-modal-p {
+  flex-basis: 100%;
+}
+.profile-following-unfollow {
+  border: 0;
+  border-radius: 5px 5px 5px 0;
+  padding: 10px;
+  flex-basis: 100%;
+  transition: background-color 0.2s ease-in-out;
+}
+.profile-following-unfollow:hover {
+  background-color: red;
+}
+.profile-following-modal image {
+  width: 150px;
+}
+.profile-following-item:hover .profile-following-modal {
+  opacity: 1;
+  visibility: visible;
+}
+.profile-following-more-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.profile-following-more-container img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+.profile-following-more-container div {
+  width: 100px;
+  display: flex;
+}

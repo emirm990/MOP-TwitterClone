@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/profile.css";
+import Following from "./Following.js";
 const Profile = props => {
   return (
     <React.Fragment>
@@ -16,20 +17,12 @@ const Profile = props => {
       <div className='profile-following'>
         <p>Following: </p>
         {props.following.map((following, index) => (
-          <div key={index} className='profile-following-item'>
-            <img
-              className='profile-following-image'
-              src={following.profilePicture}
-              alt='following profile'
-            />
-            <p className='profile-following-username'>{following.username}</p>
-            <button
-              className='profile-following-unfollow'
-              onClick={() => props.unfollow(props.following[index])}
-            >
-              Unfollow
-            </button>
-          </div>
+          <Following
+            key={index}
+            following={following}
+            index={index}
+            unfollow={props.unfollow}
+          />
         ))}
       </div>
     </React.Fragment>

@@ -170,6 +170,7 @@ body {
   box-shadow: 1px 1px 1px lightgrey;
   position: sticky;
   top: 50px;
+  z-index: 10;
 }
 @media only screen and (max-width: 1500px) {
   .container {
