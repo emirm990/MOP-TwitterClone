@@ -24,6 +24,10 @@ const Profile = props => {
             unfollow={props.unfollow}
           />
         ))}
+        <p>Followers: </p>
+        {props.followers.map((followers, index) => (
+          <Following key={index} following={followers} index={index} />
+        ))}
       </div>
     </React.Fragment>
   );

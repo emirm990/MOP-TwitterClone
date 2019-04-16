@@ -27,6 +27,7 @@ class App extends Component {
     this.searchResults = this.searchResults.bind(this);
     this.follow = this.follow.bind(this);
     this.unfollow = this.unfollow.bind(this);
+    this.followers = this.followers.bind(this);
     this.setIntitalState = this.setIntitalState.bind(this);
     this.comment = this.comment.bind(this);
     this.checkForChanges = this.checkForChanges.bind(this);
@@ -49,6 +50,7 @@ class App extends Component {
     searchEmpty: true,
     searchResultsArray: [],
     following: [],
+    followers: [],
     home: true,
     owner_id: ""
   };
@@ -65,6 +67,7 @@ class App extends Component {
       this.setState({
         username: this.state.usernameValue
       });
+      this.updateDb();
     }
   }
 
@@ -105,7 +108,8 @@ class App extends Component {
             username: this.state.usernameValue || this.state.username,
             tweets: this.state.tweets,
             timesOfTweets: this.state.timesOfTweets,
-            following: this.state.following
+            following: this.state.following,
+            followers: this.state.followers
           }
         },
         { upsert: true }
@@ -190,7 +194,46 @@ class App extends Component {
       following: [...newFollowing]
     });
   }
-
+  followers() {
+    let followers = [];
+    console.log("followers");
+    this.db
+      .collection("test")
+      .find({})
+      .toArray()
+      .then(results => {
+        for (let i = 0; i < results.length; i++) {
+          if (results[i].following.length > 0) {
+            for (let j = 0; j < results[i].following.length; j++) {
+              if (
+                results[i].following[j].owner_id === this.client.auth.user.id
+              ) {
+                followers.push(results[i]);
+              }
+            }
+          }
+        }
+        //console.log(followers, this.state.followers);
+        for (let i = 0; i < followers.length; i++) {
+          if (followers.length === this.state.followers.length) {
+            if (
+              followers[i].profilePicture !==
+              this.state.followers[i].profilePicture
+            ) {
+              this.setState({
+                followers: followers
+              });
+            }
+          }
+        }
+        console.log(followers);
+        if (followers.length !== this.state.followers.length) {
+          this.setState({
+            followers: followers
+          });
+        }
+      });
+  }
   setIntitalState() {
     this.user
       .then(() =>
@@ -206,6 +249,7 @@ class App extends Component {
             timesOfTweets: docs.timesOfTweets,
             username: docs.username,
             following: docs.following || [],
+            followers: docs.followers || [],
             owner_id: docs.owner_id
           });
         }
@@ -230,7 +274,6 @@ class App extends Component {
             " :" +
             "@" +
             this.state.username.toLowerCase().replace(/\s/g, "");
-          this.checkForChanges();
           this.db
             .collection("test")
             .updateOne(
@@ -290,6 +333,7 @@ class App extends Component {
                 this.setState({
                   following: resultsSorted
                 });
+                this.updateDb();
               }
             }
           }
@@ -311,6 +355,7 @@ class App extends Component {
             this.setState({
               tweets: docs.tweets
             });
+            this.updateDb();
           } else break;
         }
       })
@@ -320,23 +365,17 @@ class App extends Component {
   }
   componentDidMount() {
     this.setIntitalState();
-    this.interval = setInterval(() => this.checkForChanges(), 1000);
-    this.selfInterval = setInterval(() => this.checkForOwnChanges(), 1000);
+    this.interval = setInterval(() => this.checkForChanges(), 2500);
+    this.selfInterval = setInterval(() => this.checkForOwnChanges(), 2500);
+    this.followersInterval = setInterval(() => this.followers(), 5000);
   }
   componentDidUpdate(prevProps, prevState) {
-    if (
-      this.state.profilePicture !== prevState.profilePicture ||
-      this.state.tweets !== prevState.tweets ||
-      this.state.username !== prevState.username ||
-      this.state.following !== prevState.following ||
-      this.state.home !== prevState.home
-    ) {
-      this.checkForChanges();
+    if (this.state.following !== prevState.following) {
       this.updateDb();
     }
   }
   componentWillUnmount() {
-    clearInterval(this.interval);
+    clearInterval(this.interval, this.selfInterval, this.followersInterval);
   }
   render() {
     if (this.state.username === "") {
@@ -395,6 +434,7 @@ class App extends Component {
                 }
                 tweetCounter={this.state.tweets.length}
                 following={this.state.following}
+                followers={this.state.followers}
                 unfollow={this.unfollow}
               />
               <div className='uploader'>

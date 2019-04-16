@@ -19,12 +19,14 @@ const Following = props => {
             {" "}
             Tweets: {props.following.tweets.length}
           </p>
-          <button
-            className='profile-following-unfollow'
-            onClick={() => props.unfollow(props.following)}
-          >
-            Unfollow
-          </button>
+          {props.unfollow ? (
+            <button
+              className='profile-following-unfollow'
+              onClick={() => props.unfollow(props.following)}
+            >
+              Unfollow
+            </button>
+          ) : null}
         </div>
       </div>
     </div>

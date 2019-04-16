@@ -5,12 +5,12 @@
   border-radius: 0 5px 5px 0;
 }
 .profile-following p {
-  flex-basis: 100%;
+  width: 100%;
+  white-space: nowrap;
 }
 .profile-following-item {
   display: flex;
   max-height: 50px;
-  width: 100px;
   position: relative;
   margin-right: 5px;
   margin-top: 5px;
@@ -26,6 +26,7 @@
   margin: 0 auto;
   align-self: center;
   text-align: center;
+  padding: 0 5px;
 }
 .profile-following-modal {
   position: absolute;
@@ -42,6 +43,8 @@
 }
 .profile-following-modal img {
   border-radius: 10px 0 0 0;
+  max-height: 150px;
+  object-fit: cover;
 }
 .profile-following-modal-info {
   display: flex;
