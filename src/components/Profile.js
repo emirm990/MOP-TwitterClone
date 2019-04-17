@@ -6,6 +6,7 @@ const Profile = props => {
     <React.Fragment>
       <div className='profile-flex'>
         <div className='profile-image'>
+          <span className='change-picture'>Change Picture:</span>
           <img id='profile-image' src={props.profilePicture} alt='profile' />
         </div>
         <div className='profile-info'>

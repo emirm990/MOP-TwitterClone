@@ -26,18 +26,41 @@
 .uploadcare--widget__button {
   cursor: pointer;
 }
-.profile-flex:hover ~ .uploader {
-  opacity: 1;
+.profile-image {
+  position: relative;
 }
+.change-picture {
+  position: absolute;
+  width: 150px;
+  text-align: center;
+  padding-top: 10px;
+}
+
 .uploader {
   opacity: 0;
   width: 150px;
-  top: 90px;
+  top: 20px;
   position: absolute;
   transition: opacity 0.5s ease-in;
+  white-space: wrap;
 }
 .uploader label {
   background-color: rgba(237, 234, 229, 0.8);
-  border-radius: 5px;
-  padding: 5px;
+  border-radius: 5px 5px 0 0;
+  padding: 10px 5px;
+}
+.uploadcare--widget__text {
+  white-space: unset;
+  max-width: 100%;
+  margin-right: 0;
+}
+.uploadcare--widget {
+  max-width: 100%;
+}
+.uploadcare--widget__file-name {
+  max-width: 95%;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

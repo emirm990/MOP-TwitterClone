@@ -68,6 +68,10 @@ class App extends Component {
         username: this.state.usernameValue
       });
       this.updateDb();
+      console.log(this.client.auth.user.id);
+      this.setState({
+        owner_id: this.client.auth.user.id
+      });
     }
   }
 
@@ -164,7 +168,7 @@ class App extends Component {
   searchResults(arg) {
     this.db
       .collection("test")
-      .find({ username: new RegExp(arg) })
+      .find({ username: new RegExp(arg, "i") })
       .toArray()
       .then(results => {
         if (results.length > 0) {
@@ -260,10 +264,9 @@ class App extends Component {
   }
   comment(item, value, key) {
     if (key === 13 && value !== "") {
-      this.user
-        .then(() =>
-          this.db.collection("test").findOne({ owner_id: item.owner_id })
-        )
+      this.db
+        .collection("test")
+        .findOne({ owner_id: item.owner_id })
         .then(docs => {
           let index = docs.timesOfTweets.indexOf(item.timesOfTweet);
           let tweets = docs.tweets;
@@ -288,13 +291,14 @@ class App extends Component {
             .catch(err => {
               console.error(err);
             });
-          if (item.owner_id === this.client.auth.user.id) {
+          if (this.state.home) {
+            console.log(this.state.tweets, tweets);
             this.setState({
               tweets: tweets
             });
           } else {
-            this.checkForChanges();
             this.updateDb();
+            this.checkForChanges();
           }
         })
         .catch(err => {
@@ -343,25 +347,27 @@ class App extends Component {
       });
   }
   checkForOwnChanges() {
-    this.user
-      .then(() =>
-        this.db
-          .collection("test")
-          .findOne({ owner_id: this.client.auth.user.id })
-      )
-      .then(docs => {
-        for (let i = 0; i < docs.tweets.length; i++) {
-          if (docs.tweets[i] !== this.state.tweets[i]) {
-            this.setState({
-              tweets: docs.tweets
-            });
-            this.updateDb();
-          } else break;
-        }
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    if (this.state.username) {
+      this.user
+        .then(() =>
+          this.db
+            .collection("test")
+            .findOne({ owner_id: this.client.auth.user.id })
+        )
+        .then(docs => {
+          for (let i = 0; i < docs.tweets.length; i++) {
+            if (docs.tweets[i] !== this.state.tweets[i]) {
+              this.setState({
+                tweets: docs.tweets
+              });
+              this.updateDb();
+            } else break;
+          }
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
   }
   componentDidMount() {
     this.setIntitalState();
@@ -424,7 +430,7 @@ class App extends Component {
               />
             ) : null}
           </div>
-          <div className='container'>
+          <div className='container' onClick={() => this.clearSearch()}>
             <div className='profile-container'>
               <Profile
                 profilePicture={this.state.profilePicture}

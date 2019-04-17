@@ -34,9 +34,8 @@
   border-radius: 10px;
   background-color: rgb(237, 234, 229);
   box-sizing: border-box;
-  display: flex;
+  display: none;
   opacity: 0;
-  visibility: hidden;
   z-index: 99;
   transition: visibility 0.2s ease-in-out, opacity 0.2s ease-in-out;
   box-shadow: 1px 1px 1px lightgrey;
@@ -72,7 +71,7 @@
 }
 .profile-following-item:hover .profile-following-modal {
   opacity: 1;
-  visibility: visible;
+  display: flex;
 }
 .profile-following-more-container {
   display: flex;
