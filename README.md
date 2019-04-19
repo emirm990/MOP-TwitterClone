@@ -1,3 +1,9 @@
+## About Poject
+
+Copy of twitter made for internship opportunity at Minnistry of Programming with some additional functionality that was not asked for but added for the sake of learning.
+I'm using mongoDB and anonymous authentification for storing data.
+You can register, you will be able to acces that account as long as your browser cache lives, post a new Tweet or Twuud(c), comment on it, change your profile picture, search for other users, follow them and see their twuuds and comment on it and you can also se your followers and people that you follow.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
